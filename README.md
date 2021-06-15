@@ -50,14 +50,22 @@ ok      github.com/petrostrak/Testing-with-Go/03-Iteration      1.458s
 What `240.9 ns/op` means is our function takes on average 240 nanoseconds to run (on my computer).
 NOTE by default Benchmarks are run sequentially.
 
+### Coverage tool
 Go's built-in testing toolkit features a coverage tool. Whilst striving for 100% coverage should not be your end goal, the coverage tool can help identify areas of your code not covered by tests. If you have been strict with TDD, it's quite likely you'll have close to 100% coverage anyway.
 Try running `go test -cover` you should see:
 ```
 PASS
 coverage: 100.0% of statements
 ```
+### reflect.DeepEqual
+Go does not let you use equality operators with slices. You could write a function to iterate over each got and want slice and check their values but for convenience sake, we can use `reflect.DeepEqual` which is useful for seeing if any two variables are the same.
+```
+if !reflect.DeepEqual(got, want) {
+	t.Errorf("got %v, want %v", got, want)
+}
+```
 
-
+It's important to note that `reflect.DeepEqual` is not "type safe" - the code will compile even if you did something a bit silly. So while using `reflect.DeepEqual` is a convenient way of comparing slices (and other things) you must be careful when using it.
 
 
 
