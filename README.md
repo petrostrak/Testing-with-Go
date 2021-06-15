@@ -49,3 +49,15 @@ ok      github.com/petrostrak/Testing-with-Go/03-Iteration      1.458s
 ```
 What `240.9 ns/op` means is our function takes on average 240 nanoseconds to run (on my computer).
 NOTE by default Benchmarks are run sequentially.
+
+Go's built-in testing toolkit features a coverage tool. Whilst striving for 100% coverage should not be your end goal, the coverage tool can help identify areas of your code not covered by tests. If you have been strict with TDD, it's quite likely you'll have close to 100% coverage anyway.
+Try running `go test -cover` you should see:
+```
+PASS
+coverage: 100.0% of statements
+```
+
+
+
+
+
