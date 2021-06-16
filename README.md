@@ -67,5 +67,26 @@ if !reflect.DeepEqual(got, want) {
 
 It's important to note that `reflect.DeepEqual` is not "type safe" - the code will compile even if you did something a bit silly. So while using `reflect.DeepEqual` is a convenient way of comparing slices (and other things) you must be careful when using it.
 
+### Table driven tests
+[Table driven tests](https://github.com/golang/go/wiki/TableDrivenTests) are useful when you want to build a list of test cases that can be tested in the same manner.
+```
+func TestArea(t *testing.T) {
 
+    areaTests := []struct {
+        shape Shape
+        want  float64
+    }{
+        {Rectangle{12, 6}, 72.0},
+        {Circle{10}, 314.1592653589793},
+    }
 
+    for _, tt := range areaTests {
+        got := tt.shape.Area()
+        if got != tt.want {
+            t.Errorf("got %g want %g", got, tt.want)
+        }
+    }
+
+}
+```
+The only new syntax here is creating an "anonymous struct", `areaTests`. We are declaring a slice of structs by using `[]struct`. Then we fill the slice with cases. We then iterate over them just like we do any other slice, using the struct fields to run our tests.
