@@ -20,7 +20,18 @@ func SumAll(slices ...[]int) []int {
 	return sum
 }
 
+func SumAllTails(slices ...[]int) []int {
+	var tails []int
+	for _, slice := range slices {
+		sumTail := slice[len(slice)-1]
+		tails = append(tails, sumTail)
+	}
+
+	return tails
+}
+
 func main() {
 	fmt.Println(Sum([]int{1, 2}))
 	fmt.Println(SumAll([]int{1, 2}, []int{0, 9}))
+	fmt.Println(SumAllTails([]int{1, 2}, []int{0, 9}))
 }
