@@ -1,16 +1,25 @@
 package main
 
-import "fmt"
-
-var (
-	dictionary = map[string]string{}
+import (
+	"errors"
+	"fmt"
 )
 
-func Search(dictionary map[string]string, word string) string {
-	return dictionary[word]
+type Dictionary map[string]string
+
+var (
+	ErrWordNotFound = errors.New("could not find the word you are looking for")
+)
+
+func (d Dictionary) Search(word string) (string, error) {
+	definition, ok := d[word]
+	if !ok {
+		return "", ErrWordNotFound
+	}
+	return definition, nil
 }
 
 func main() {
-	dictionary["test"] = "this is just a test"
-	fmt.Println(Search(dictionary, "test"))
+	d := Dictionary{"test": "This is just a test"}
+	fmt.Println(d.Search("test"))
 }
