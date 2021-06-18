@@ -54,4 +54,5 @@ func TestAdd(t *testing.T) {
 	definition := "this is just a test"
 	dictionary.Add(word, definition)
 
+	assertDefinition(t, dictionary, word, definition)
 }
