@@ -90,3 +90,31 @@ func TestArea(t *testing.T) {
 }
 ```
 The only new syntax here is creating an "anonymous struct", `areaTests`. We are declaring a slice of structs by using `[]struct`. Then we fill the slice with cases. We then iterate over them just like we do any other slice, using the struct fields to run our tests.
+
+### http.HandlerFunc
+
+>The HandlerFunc type is an adapter to allow the use of ordinary functions as HTTP handlers. If f is a function with the appropriate signature, HandlerFunc(f) is a Handler that calls f.
+```
+type HandlerFunc func(ResponseWriter, *Request)
+```
+
+From the documentation, we see that type `HandlerFunc` has already implemented the `ServeHTTP` method. By type casting our `PlayerServer` function with it, we have now implemented the required `Handler`.
+
+### http.ListenAndServe(":8080"...)
+`ListenAndServe` takes a port to listen on a `Handler`. If there is a problem the web server will return an error, an example of that might be the port already being listened to.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
