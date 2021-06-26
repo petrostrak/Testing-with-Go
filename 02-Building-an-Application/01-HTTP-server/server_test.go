@@ -29,30 +29,31 @@ func assertResponseBody(t testing.TB, got, want string) {
 }
 
 func TestGETPlayers(t *testing.T) {
-	server := &PlayerServer{}
+	store := StubPlayerStore{
+		map[string]int{
+			"Petros": 20,
+			"Maggie": 10,
+		},
+	}
+
+	server := &PlayerServer{&store}
 
 	t.Run("returns Petros score", func(t *testing.T) {
-		request, _ := http.NewRequest(http.MethodGet, "/players/Petros", nil)
+		request := newGetScorePlayer("Petros")
 		// net/http/httptest has a spy already made for us called ResponseRecorder so we can use that
 		response := httptest.NewRecorder()
 
 		server.ServeHTTP(response, request)
 
-		got := response.Body.String()
-		want := "20"
-
-		assertResponseBody(t, got, want)
+		assertResponseBody(t, response.Body.String(), "20")
 	})
 
 	t.Run("returns Maggie's score", func(t *testing.T) {
-		request, _ := http.NewRequest(http.MethodGet, "/players/Maggie", nil)
+		request := newGetScorePlayer("Maggie")
 		response := httptest.NewRecorder()
 
 		server.ServeHTTP(response, request)
 
-		got := response.Body.String()
-		want := "10"
-
-		assertResponseBody(t, got, want)
+		assertResponseBody(t, response.Body.String(), "10")
 	})
 }

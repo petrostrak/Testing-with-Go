@@ -17,7 +17,7 @@ type PlayerServer struct {
 func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/players")
 
-	fmt.Fprint(w, GetPlayerScore(player))
+	fmt.Fprint(w, p.store.GetPlayerScore(player))
 }
 
 func GetPlayerScore(player string) string {

@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"github.com/petrostrak/Testing-with-Go/15-Reading-Files"
+	"github.com/petrostrak/Testing-with-Go/01-Go-Fundamentals/15-Reading-Files"
 	"io/fs"
 	"testing"
 	"testing/fstest"
