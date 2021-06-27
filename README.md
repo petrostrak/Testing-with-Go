@@ -121,7 +121,7 @@ json.NewEncoder(w).Encode(leagueTable)
 ```
 Notice the lovely symmetry in the standard library.
 * To create an Encoder you need an `io.Writer` which is what http.ResponseWriter implements.
-* To create a Decoder you need an io.Reader which the Body field of our response spy implements.
+* To create a Decoder you need an `io.Reader` which the Body field of our response spy implements.
 
 
 
