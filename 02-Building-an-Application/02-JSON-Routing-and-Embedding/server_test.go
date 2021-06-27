@@ -30,7 +30,7 @@ func assertStatus(t testing.TB, got, want int) {
 func TestLeage(t *testing.T) {
 
 	store := StubPlayerStore{}
-	server := &PlayerServer{&store}
+	server := NewPlayerServer(&store)
 
 	t.Run("it returns 200 on /league", func(t *testing.T) {
 
