@@ -103,9 +103,25 @@ From the documentation, we see that type `HandlerFunc` has already implemented t
 ### http.ListenAndServe(":8080"...)
 `ListenAndServe` takes a port to listen on a `Handler`. If there is a problem the web server will return an error, an example of that might be the port already being listened to.
 
+### JSON Decoding and Encoding
+```
+var got []Player
+err := json.NewDecoder(response.Body).Decode(&got)
+```
+To parse JSON into our data model we create a `Decoder` from `encoding/json` package and then call its `Decode` method. To create a `Decoder` it needs an `io.Reader` to read from which in our case is our response spy's `Body`.
+`Decode` takes the address of the thing we are trying to decode into which is why we declare an empty slice of `Player` the line before.
+Parsing JSON can fail so `Decode` can return an `error`. There's no point continuing the test if that fails so we check for the error and stop the test with `t.Fatalf` if it happens. Notice that we print the response body along with the error as it's important for someone running the test to see what string cannot be parsed.
 
+```
+leagueTable := []Player{
+    {"Petros", 20},
+}
 
-
+json.NewEncoder(w).Encode(leagueTable)
+```
+Notice the lovely symmetry in the standard library.
+* To create an Encoder you need an `io.Writer` which is what http.ResponseWriter implements.
+* To create a Decoder you need an io.Reader which the Body field of our response spy implements.
 
 
 
